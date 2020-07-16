@@ -1,92 +1,105 @@
-import React from "react";
+import React, { useState } from "react";
 import DailyWeather from "./DailyWeather";
+import { createUseStyles } from "react-jss";
 
-class Form extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: "",
-      city: "",
-      weather: [],
-    };
+const useStyles = createUseStyles({
+  cityInput: {
+    width: 150,
+    margin: 20,
+  },
+  buttons: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  submitButton: {
+    width: 150,
+    height: 150,
+    borderRadius: "100%",
+    margin: 20,
+  },
+});
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleDailySubmit = this.handleDailySubmit.bind(this);
-    this.handleLongTermSubmit = this.handleLongTermSubmit.bind(this);
-  }
+const Form = () => {
+  const [value, setValue] = useState("");
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState([]);
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
+  const classes = useStyles();
 
-  getDailyWeather = () => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`
-    )
-      .then((res) => res.json())
-      .then((data) =>
-        this.setState({
-          city: data.name,
-          weather: [data],
-        })
-      );
+  const handleChange = (event) => {
+    setValue(event.target.value);
   };
 
-  getLongTermWeather = () => {
+  const getDailyWeather = () => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setCity(data.name);
+        setWeather([data]);
+      });
+  };
+
+  const getLongTermWeather = () => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`
     )
       .then((res) => res.json())
       .then((data) => {
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&
             exclude=current,minutely,hourly&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`)
           .then((res) => res.json())
-          .then((data) => this.setState({ weather: data.daily }));
+          .then((data) => setWeather(data.daily));
       });
   };
 
-  handleDailySubmit(event) {
+  const handleDailySubmit = (event) => {
     event.preventDefault();
-    this.getDailyWeather();
-  }
+    getDailyWeather();
+  };
 
-  handleLongTermSubmit(event) {
+  const handleLongTermSubmit = (event) => {
     event.preventDefault();
-    this.getLongTermWeather();
-  }
+    getLongTermWeather();
+  };
 
-  render() {
-    return (
-      <div>
-        <form>
-          <label>
-            Miasto:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
+  return (
+    <div>
+      <form>
+        <label>
+          Miasto:
           <input
+            className={classes.cityInput}
+            type="text"
+            value={value}
+            onChange={handleChange}
+          />
+        </label>
+        <div className={classes.buttons}>
+          <input
+            className={classes.submitButton}
             type="submit"
             value="Wyświetl prognozę na dziś"
-            onClick={this.handleDailySubmit}
+            onClick={handleDailySubmit}
           />
           <input
+            className={classes.submitButton}
             type="submit"
             value="Wyświetl prognozę długoterminową"
-            onClick={this.handleLongTermSubmit}
+            onClick={handleLongTermSubmit}
           />
-        </form>
-        <p>Wybrane miasto: {this.state.city}</p>
-        <ul>
-          {this.state.weather.map((el) => (
-            <DailyWeather key={el.dt.toString()} value={el} />
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+        </div>
+      </form>
+      <p>Wybrane miasto: {city}</p>
+      <ul>
+        {weather.map((el) => (
+          <DailyWeather key={el.dt.toString()} value={el} />
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default Form;
