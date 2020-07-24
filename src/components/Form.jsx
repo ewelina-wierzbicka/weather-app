@@ -1,24 +1,7 @@
 import React, { useState } from "react";
 import DailyWeather from "./DailyWeather";
-import { createUseStyles } from "react-jss";
-
-const useStyles = createUseStyles({
-  cityInput: {
-    width: 150,
-    margin: 20,
-  },
-  buttons: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  },
-  submitButton: {
-    width: 150,
-    height: 150,
-    borderRadius: "100%",
-    margin: 20,
-  },
-});
+import useStyles from "./style";
+import { FormContext } from "../App";
 
 const Form = () => {
   const [value, setValue] = useState("");
@@ -92,10 +75,12 @@ const Form = () => {
           />
         </div>
       </form>
-      <p>Wybrane miasto: {city}</p>
+      <p>Wybrane miasto: {value}</p>
       <ul>
         {weather.map((el) => (
-          <DailyWeather key={el.dt.toString()} value={el} />
+          <FormContext.Provider value={{ el, value }}>
+            <DailyWeather key={el.dt.toString()} value={el} />
+          </FormContext.Provider>
         ))}
       </ul>
     </div>
