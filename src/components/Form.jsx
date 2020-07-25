@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import DailyWeather from "./DailyWeather";
 import useStyles from "./style";
 import { FormContext } from "../App";
+import { useDispatch } from 'react-redux';
+import { citySubmitted } from '../actions'
 
 const Form = () => {
   const [value, setValue] = useState("");
@@ -9,6 +11,7 @@ const Form = () => {
   const [weather, setWeather] = useState([]);
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -41,6 +44,7 @@ const Form = () => {
   const handleDailySubmit = (event) => {
     event.preventDefault();
     getDailyWeather();
+    dispatch(citySubmitted(value));
   };
 
   const handleLongTermSubmit = (event) => {
