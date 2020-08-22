@@ -1,92 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import DailyWeather from "./DailyWeather";
 import useStyles from "./style";
-import { FormContext } from "../App";
-import { useDispatch } from 'react-redux';
-import { citySubmitted } from '../actions'
+import { useDispatch } from "react-redux";
+import { citySubmitted, fetchWeather } from "../slice";
+import { useSelector } from "react-redux";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Form = () => {
-  const [value, setValue] = useState("");
-  const [city, setCity] = useState("");
-  const [weather, setWeather] = useState([]);
-
   const classes = useStyles();
   const dispatch = useDispatch();
+  const city = useSelector((state) => state.city);
+  const loading = useSelector((state) => state.loading);
+  const weatherList = useSelector((state) => state.weatherList);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const getDailyWeather = () => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCity(data.name);
-        setWeather([data]);
-      });
-  };
-
-  const getLongTermWeather = () => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&
-            exclude=current,minutely,hourly&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`)
-          .then((res) => res.json())
-          .then((data) => setWeather(data.daily));
-      });
-  };
-
-  const handleDailySubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    getDailyWeather();
-    dispatch(citySubmitted(value));
-  };
-
-  const handleLongTermSubmit = (event) => {
-    event.preventDefault();
-    getLongTermWeather();
+    dispatch(citySubmitted(event.target.city.value));
+    dispatch(fetchWeather(event.target.city.value));
   };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           Miasto:
-          <input
-            className={classes.cityInput}
-            type="text"
-            value={value}
-            onChange={handleChange}
-          />
+          <input className={classes.cityInput} type="text" name="city" />
         </label>
-        <div className={classes.buttons}>
-          <input
-            className={classes.submitButton}
-            type="submit"
-            value="Wyświetl prognozę na dziś"
-            onClick={handleDailySubmit}
-          />
-          <input
-            className={classes.submitButton}
-            type="submit"
-            value="Wyświetl prognozę długoterminową"
-            onClick={handleLongTermSubmit}
-          />
-        </div>
+        {
+          <div className={classes.buttons}>
+            <button className={classes.submitButton} type="submit">
+              POKAŻ PROGNOZĘ POGODY
+            </button>
+          </div>
+        }
       </form>
-      <p>Wybrane miasto: {value}</p>
-      <ul>
-        {weather.map((el) => (
-          <FormContext.Provider value={{ el, value }}>
-            <DailyWeather key={el.dt.toString()} value={el} />
-          </FormContext.Provider>
+      <p>Wybrane miasto: {city}</p>
+      {loading && <LoadingOutlined style={{ fontSize: 34 }} spin />}
+      <div className={classes.weatherList}>
+        {weatherList.map((weather) => (
+          <DailyWeather key={weather.dt.toString()} weather={weather} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
