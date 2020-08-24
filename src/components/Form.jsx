@@ -26,13 +26,11 @@ const Form = () => {
           Miasto:
           <input className={classes.cityInput} type="text" name="city" />
         </label>
-        {
-          <div className={classes.buttons}>
+        <div>
             <button className={classes.submitButton} type="submit">
               POKAŻ PROGNOZĘ POGODY
             </button>
-          </div>
-        }
+        </div>
       </form>
       <p>Wybrane miasto: {city}</p>
       {loading && <LoadingOutlined style={{ fontSize: 34 }} spin />}

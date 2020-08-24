@@ -1,19 +1,22 @@
 import React from "react";
 import { Progress } from "antd";
 import { format, fromUnixTime } from "date-fns";
+import useStyles from "./style";
 
 const DailyWeather = ({ weather }) => {
-  const date = format(fromUnixTime(weather.dt), "dd/MM/yyyy");
+  const classes = useStyles();
+  const date = format(fromUnixTime(weather.dt), "dd.MM.yyyy");
+  const temperature = Math.round(weather.temp.day);
+  const iconSrc = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
 
   return (
     <div>
       {weather && (
         <div>
-          <p>Data: {date}</p>
-          <p>
-            Zachmurzenie: <Progress type="circle" percent={weather.clouds} />
-          </p>
-          <p>Temperatura: {weather.temp.day}°C </p>
+          <p>{date}</p>
+          <img src={iconSrc} />
+          <p>Temperatura: <span className={classes.temperature}>{temperature}°C </span></p>
+          <p>Zachmurzenie: <Progress type="circle" status="normal" percent={weather.clouds} /></p>          
         </div>
       )}
     </div>
