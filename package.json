@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.4.2",
     "date-fns": "^2.14.0",
+    "fetch-mock": "^9.10.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-jss": "^10.3.0",

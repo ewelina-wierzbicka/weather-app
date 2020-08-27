@@ -15,6 +15,7 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(event.target);
     dispatch(citySubmitted(event.target.city.value));
     dispatch(fetchWeather(event.target.city.value));
   };
