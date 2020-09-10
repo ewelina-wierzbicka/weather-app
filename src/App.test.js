@@ -9,39 +9,27 @@ import {
     cityMock,
     weatherMock
 } from './mocks/citymock.js';
-
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+import userEvent from '@testing-library/user-event'
 
 describe('App component', () => {
     test('should render button', () => {
         const {
             getByText
-        } = render( < App / > );
+        } = render( < App /> );
         const button = getByText(/pokaż prognozę/i);
         expect(button).toBeInTheDocument();
     })
     test('should render input', () => {
-        render( < App / > )
+        render( < App /> )
         expect(screen.getByLabelText(/miasto/i)).toBeInTheDocument();
     })
     test('should get weather', async () => {
-        render( < App / > )
-        const input = screen.getByLabelText(/miasto/i);
-        fireEvent.change(input, {
-            target: {
-                city: {
-                    value: 'Kraków'
-                }
-            }
-        });
-        const button = screen.getByText(/pokaż prognozę/i);
-        fireEvent.click(button);
-        const weather = await screen.findAllByText(/temperatura/i);
-        expect(weather.length).toBe(8);
+            render( < App /> )
+            const input = screen.getByLabelText(/miasto/i);
+            userEvent.type(input, 'Kraków');
+            screen.debug();
+        const button = screen.getByText(/pokaż prognozę/i); fireEvent.click(button);
+        const weather = await screen.findAllByText(/temperatura/i); expect(weather.length).toBe(8);
     })
 })
 
