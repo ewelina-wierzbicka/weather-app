@@ -1,3 +1,9 @@
+@import '~antd/dist/antd.css';
+
 .App {
   text-align: center;
+  min-height: 100vh;
+  color: #696969;
+  font-size: 16px;
+  background: #ebf7f5 url('./Untitled-1.png') no-repeat fixed bottom;
 }

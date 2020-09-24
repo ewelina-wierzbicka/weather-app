@@ -1,49 +1,51 @@
-import React from 'react';
-import DailyWeather from './DailyWeather'
+import React from "react";
+import DailyWeather from "./DailyWeather";
+import useStyles from "./style";
+import { useDispatch } from "react-redux";
+import { citySubmitted, fetchWeather } from "../slice";
+import { useSelector } from "react-redux";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Formik, Form, Field } from 'formik';
 
-class Form extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: '',
-            result: ''
-        };
-    
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    
+const CityForm = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const city = useSelector((state) => state.city);
+  const loading = useSelector((state) => state.loading);
+  const weatherList = useSelector((state) => state.weatherList);
 
-    handleChange(event) {
-        this.setState({ value: event.target.value })
-    }
+  const handleSubmit = (values) => {
+    dispatch(citySubmitted(values.city));
+    dispatch(fetchWeather(values.city));
+  };
 
-    getCity = () => {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&appid=${process.env.REACT_APP_OPEN_WEATHER_ID}&units=metric`)
-        .then(res => res.json())
-        .then(data => this.setState({ result: data }));                
-    };
-    
-    handleSubmit(event) {
-        event.preventDefault();
-        this.getCity();
-    }
-    
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                    Miasto:
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-                <p>Wybrane miasto: {this.state.result.name}</p>
-                <DailyWeather clouds={this.state.result.clouds} />
-            </div>
-        );
-    }
-}
+  return (
+    <>
+       <Formik
+       initialValues={{ city: '' }}
+       onSubmit={ handleSubmit }
+        >
+        <Form>
+        <label>
+          Miasto:
+          <Field className={classes.cityInput} type="text" name="city"/>
+        </label>
+        <div>
+            <button className={classes.submitButton} type="submit">
+              POKAŻ PROGNOZĘ POGODY
+            </button>
+        </div>
+      </Form>
+      </Formik>
+      <p>Wybrane miasto: {city}</p>
+      {loading && <LoadingOutlined style={{ fontSize: 34 }} spin />}
+      <div className={classes.weatherList}>
+        {weatherList.map((weather) => (
+          <DailyWeather key={weather.dt.toString()} weather={weather} />
+        ))}
+      </div>
+      </>
+  );
+};
 
-export default Form;
+export default CityForm;

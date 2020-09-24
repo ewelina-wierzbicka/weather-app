@@ -1,14 +1,26 @@
-import React, { Component } from "react";
+import React from "react";
+import { Progress } from "antd";
+import { format, fromUnixTime } from "date-fns";
+import useStyles from "./style";
 
-export default class DailyWeather extends Component {
-  render() {
-    console.log(this.props);
-    return (
-      <div>
-        {this.props.clouds && (
-          <div>Zachmurzenie: {this.props.clouds.all} </div>
-        )}
-      </div>
-    );
-  }
-}
+const DailyWeather = ({ weather }) => {
+  const classes = useStyles();
+  const date = format(fromUnixTime(weather.dt), "dd.MM.yyyy");
+  const temperature = Math.round(weather.temp.day);
+  const iconSrc = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
+
+  return (
+    <div>
+      {weather && (
+        <div>
+          <p>{date}</p>
+          <img src={iconSrc} />
+          <p>Temperatura: <span className={classes.temperature}>{temperature}°C </span></p>
+          <p>Zachmurzenie: <Progress type="circle" status="normal" percent={weather.clouds} /></p>          
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DailyWeather;
