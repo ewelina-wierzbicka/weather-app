@@ -14,6 +14,9 @@ const useStyles = createUseStyles({
       transition: 'background-color 5000s',
     },
   },
+ cityError: {
+    color: 'red',
+  },
   submitButton: {
     width: 120,
     height: 120,
@@ -37,7 +40,10 @@ const useStyles = createUseStyles({
     fontSize: 30,
     fontWeight: '100',
     padding: 10,
-  }
+  },
+  loading: {
+    fontSize: 34,
+  },
 });
 
 export default useStyles;
