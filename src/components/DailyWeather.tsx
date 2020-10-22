@@ -2,8 +2,9 @@ import React from "react";
 import { Progress } from "antd";
 import { format, fromUnixTime } from "date-fns";
 import useStyles from "./style";
+import { Weather } from "../slice"
 
-const DailyWeather = ({ weather }) => {
+const DailyWeather: React.FC<{weather: Weather}> = ({weather}) => {
   const classes = useStyles();
   const date = format(fromUnixTime(weather.dt), "dd.MM.yyyy");
   const temperature = Math.round(weather.temp.day);
@@ -14,9 +15,18 @@ const DailyWeather = ({ weather }) => {
       {weather && (
         <div>
           <p>{date}</p>
-          <img src={iconSrc} />
-          <p>Temperatura: <span className={classes.temperature}>{temperature}°C </span></p>
-          <p>Zachmurzenie: <Progress type="circle" status="normal" percent={weather.clouds} /></p>          
+          <img src={iconSrc} alt="" />
+          <p>
+            Temperatura: 
+            <span className={classes.temperature}>
+              {temperature}
+              °C
+            </span>
+          </p>
+          <p>
+            Zachmurzenie: 
+            <Progress type="circle" status="normal" percent={weather.clouds} />
+          </p>          
         </div>
       )}
     </div>
