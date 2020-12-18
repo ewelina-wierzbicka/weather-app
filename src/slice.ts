@@ -11,6 +11,10 @@ export interface Weather {
   dt: number, temp: {day: number}, weather: Array<{icon: string}>, clouds: number
 }
 
+export interface WeatherRequestPayload {
+  value: string, onSuccess: () => void, onError: () => void
+}
+
 const initialState: WeatherState = {city: "", loading: false, weatherList: [], error: {}};
 
 const weatherSlice = createSlice({
@@ -28,6 +32,7 @@ const weatherSlice = createSlice({
       state.loading = true;
     },
     requestWeatherFail(state, {payload}) {
+      state.weatherList = [];
       state.loading = false;
       state.error = payload;
     },
@@ -41,7 +46,7 @@ export const {
   requestWeatherFail,
 } = weatherSlice.actions;
 
-export function fetchWeather(value: string) {
+export function fetchWeather({value, onSuccess, onError}:WeatherRequestPayload ) {
   return async function (dispatch: Dispatch) {
     dispatch(requestWeather());
     try {
@@ -60,8 +65,14 @@ export function fetchWeather(value: string) {
       }
       const secondJson = await secondRequest.json();
       dispatch(requestWeatherSuccess(secondJson.daily));
+      if(onSuccess) {
+        onSuccess()
+      }
     } catch (error) {
       dispatch(requestWeatherFail(error.message));
+      if(onError) {
+        onError()
+        }
     }
   };
 }

@@ -7,6 +7,8 @@ import DailyWeather from "./DailyWeather";
 import useStyles from "./style";
 import { getCity, getLoading, getWeather } from "../selectors";
 import { CitySchema } from "../schemas";
+import { useHistory } from "react-router-dom";
+
 
 const CityForm: React.FC<{}> = () => {
   const classes = useStyles();
@@ -14,13 +16,20 @@ const CityForm: React.FC<{}> = () => {
   const city = useSelector(getCity);
   const loading = useSelector(getLoading);
   const weatherList = useSelector(getWeather);
+  const history = useHistory();
+
+  const redirectToSuccessPage = () => {
+    history.push('/success');
+  }
+
+  const redirectToErrorPage = () => {
+    history.push('/error');
+    }
 
   const handleSubmit = (value: {city: string}) => {
     dispatch(citySubmitted(value.city));
-    dispatch(fetchWeather(value.city));
+    dispatch(fetchWeather({value: value.city, onSuccess: redirectToSuccessPage, onError: redirectToErrorPage}));
   };
-
- 
 
   return (
     <>
@@ -45,8 +54,7 @@ const CityForm: React.FC<{}> = () => {
         )}
       </Formik>
       <p>
-        Wybrane miasto: 
-        {city}
+        Wybrane miasto: {city}
       </p>
       {loading && <LoadingOutlined className={classes.loading} spin />}
       <div className={classes.weatherList}>

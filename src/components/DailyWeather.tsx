@@ -2,7 +2,7 @@ import React from "react";
 import { Progress } from "antd";
 import { format, fromUnixTime } from "date-fns";
 import useStyles from "./style";
-import { Weather } from "../slice"
+import { Weather } from "../slice";
 
 const DailyWeather: React.FC<{weather: Weather}> = ({weather}) => {
   const classes = useStyles();
@@ -24,7 +24,7 @@ const DailyWeather: React.FC<{weather: Weather}> = ({weather}) => {
             </span>
           </p>
           <p>
-            Zachmurzenie: 
+            Zachmurzenie: {" "}
             <Progress type="circle" status="normal" percent={weather.clouds} />
           </p>          
         </div>
