@@ -8,6 +8,7 @@ import useStyles from "./style";
 import { getCity, getLoading, getWeather } from "../selectors";
 import { CitySchema } from "../schemas";
 import { useHistory } from "react-router-dom";
+import { useLocation } from 'react-router'
 
 
 const CityForm: React.FC<{}> = () => {
@@ -17,24 +18,30 @@ const CityForm: React.FC<{}> = () => {
   const loading = useSelector(getLoading);
   const weatherList = useSelector(getWeather);
   const history = useHistory();
+  const location = useLocation();
+  const locationCity = location.pathname.replace("/", "");
 
-  const redirectToSuccessPage = () => {
-    history.push('/success');
+    React.useEffect(() => {
+       if(locationCity) {
+      dispatch(citySubmitted(locationCity))
+      dispatch(fetchWeather({value: locationCity, onSuccess: redirectToSuccessPage(locationCity)}));
+    }}, []);
+
+  const redirectToSuccessPage = (city: string) => {
+  return () => {
+    history.push(`/${city}`);
   }
-
-  const redirectToErrorPage = () => {
-    history.push('/error');
-    }
+  }
 
   const handleSubmit = (value: {city: string}) => {
     dispatch(citySubmitted(value.city));
-    dispatch(fetchWeather({value: value.city, onSuccess: redirectToSuccessPage, onError: redirectToErrorPage}));
+    dispatch(fetchWeather({value: value.city, onSuccess: redirectToSuccessPage(value.city)}));
   };
 
   return (
     <>
       <Formik
-        initialValues={{ city: "" }}
+        initialValues={{ city: locationCity }}
         onSubmit={handleSubmit}
         validationSchema={CitySchema}
       >

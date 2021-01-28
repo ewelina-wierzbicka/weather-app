@@ -1,4 +1,5 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { toast } from 'react-toastify';
 
 export interface WeatherState {
   weatherList: Array<Weather>,
@@ -12,7 +13,7 @@ export interface Weather {
 }
 
 export interface WeatherRequestPayload {
-  value: string, onSuccess: () => void, onError: () => void
+  value: string, onSuccess: () => void
 }
 
 const initialState: WeatherState = {city: "", loading: false, weatherList: [], error: {}};
@@ -46,7 +47,7 @@ export const {
   requestWeatherFail,
 } = weatherSlice.actions;
 
-export function fetchWeather({value, onSuccess, onError}:WeatherRequestPayload ) {
+export function fetchWeather({value, onSuccess}:WeatherRequestPayload ) {
   return async function (dispatch: Dispatch) {
     dispatch(requestWeather());
     try {
@@ -70,9 +71,7 @@ export function fetchWeather({value, onSuccess, onError}:WeatherRequestPayload )
       }
     } catch (error) {
       dispatch(requestWeatherFail(error.message));
-      if(onError) {
-        onError()
-        }
+      toast.error("Nie znaleziono miasta");
     }
   };
 }

@@ -23,10 +23,10 @@ const DailyWeather: React.FC<{weather: Weather}> = ({weather}) => {
               °C
             </span>
           </p>
-          <p>
+          <div>
             Zachmurzenie: {" "}
             <Progress type="circle" status="normal" percent={weather.clouds} />
-          </p>          
+          </div>          
         </div>
       )}
     </div>
