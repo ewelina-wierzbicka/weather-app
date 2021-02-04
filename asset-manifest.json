@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.e0af040b.chunk.css",
-    "main.js": "/static/js/main.d28e97b4.chunk.js",
-    "main.js.map": "/static/js/main.d28e97b4.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.7ecb0647.js",
-    "runtime-main.js.map": "/static/js/runtime-main.7ecb0647.js.map",
-    "static/css/2.692ca9dc.chunk.css": "/static/css/2.692ca9dc.chunk.css",
-    "static/js/2.62a32d1e.chunk.js": "/static/js/2.62a32d1e.chunk.js",
-    "static/js/2.62a32d1e.chunk.js.map": "/static/js/2.62a32d1e.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.b2e5db6176c6a4d99d4d324dace108f1.js": "/precache-manifest.b2e5db6176c6a4d99d4d324dace108f1.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.692ca9dc.chunk.css.map": "/static/css/2.692ca9dc.chunk.css.map",
-    "static/css/main.e0af040b.chunk.css.map": "/static/css/main.e0af040b.chunk.css.map",
-    "static/js/2.62a32d1e.chunk.js.LICENSE.txt": "/static/js/2.62a32d1e.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/static/media/Untitled-1.a614a0c5.png"
+    "main.css": "https://ewelina-wierzbicka.github.io/weather-app/static/css/main.bae373d6.chunk.css",
+    "main.js": "https://ewelina-wierzbicka.github.io/weather-app/static/js/main.3cee2e4d.chunk.js",
+    "main.js.map": "https://ewelina-wierzbicka.github.io/weather-app/static/js/main.3cee2e4d.chunk.js.map",
+    "runtime-main.js": "https://ewelina-wierzbicka.github.io/weather-app/static/js/runtime-main.619af735.js",
+    "runtime-main.js.map": "https://ewelina-wierzbicka.github.io/weather-app/static/js/runtime-main.619af735.js.map",
+    "static/css/2.692ca9dc.chunk.css": "https://ewelina-wierzbicka.github.io/weather-app/static/css/2.692ca9dc.chunk.css",
+    "static/js/2.62a32d1e.chunk.js": "https://ewelina-wierzbicka.github.io/weather-app/static/js/2.62a32d1e.chunk.js",
+    "static/js/2.62a32d1e.chunk.js.map": "https://ewelina-wierzbicka.github.io/weather-app/static/js/2.62a32d1e.chunk.js.map",
+    "index.html": "https://ewelina-wierzbicka.github.io/weather-app/index.html",
+    "precache-manifest.cb24f4e0cd0d5006f4c2190a265dc48b.js": "https://ewelina-wierzbicka.github.io/weather-app/precache-manifest.cb24f4e0cd0d5006f4c2190a265dc48b.js",
+    "service-worker.js": "https://ewelina-wierzbicka.github.io/weather-app/service-worker.js",
+    "static/css/2.692ca9dc.chunk.css.map": "https://ewelina-wierzbicka.github.io/weather-app/static/css/2.692ca9dc.chunk.css.map",
+    "static/css/main.bae373d6.chunk.css.map": "https://ewelina-wierzbicka.github.io/weather-app/static/css/main.bae373d6.chunk.css.map",
+    "static/js/2.62a32d1e.chunk.js.LICENSE.txt": "https://ewelina-wierzbicka.github.io/weather-app/static/js/2.62a32d1e.chunk.js.LICENSE.txt",
+    "static/media/App.css": "https://ewelina-wierzbicka.github.io/weather-app/static/media/Untitled-1.a614a0c5.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.7ecb0647.js",
+    "static/js/runtime-main.619af735.js",
     "static/css/2.692ca9dc.chunk.css",
     "static/js/2.62a32d1e.chunk.js",
-    "static/css/main.e0af040b.chunk.css",
-    "static/js/main.d28e97b4.chunk.js"
+    "static/css/main.bae373d6.chunk.css",
+    "static/js/main.3cee2e4d.chunk.js"
   ]
 }
