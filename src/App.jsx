@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => (
   <Provider store={store}>
-    <Router>
+    <Router basename="/">
       <div className="App">
         <ToastContainer />
         <CityForm />

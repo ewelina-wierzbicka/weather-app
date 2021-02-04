@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ewelina-wierzbicka.github.io/weather-app/",
+  "homepage": "https://ewelina-wierzbicka.github.io",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@reduxjs/toolkit": "^1.4.0",
