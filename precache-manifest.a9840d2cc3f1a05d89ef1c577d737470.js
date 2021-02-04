@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f79ad4f2c45351cde3eaa2799661a153",
+    "revision": "92476441a07f420be19dbab815d1057f",
     "url": "https://ewelina-wierzbicka.github.io/weather-app/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://ewelina-wierzbicka.github.io/weather-app/static/css/2.692ca9dc.chunk.css"
   },
   {
-    "revision": "219b3c961a99671e62aa",
+    "revision": "96449d15f29b1e3eb5d1",
     "url": "https://ewelina-wierzbicka.github.io/weather-app/static/css/main.bae373d6.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://ewelina-wierzbicka.github.io/weather-app/static/js/2.62a32d1e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "219b3c961a99671e62aa",
-    "url": "https://ewelina-wierzbicka.github.io/weather-app/static/js/main.3cee2e4d.chunk.js"
+    "revision": "96449d15f29b1e3eb5d1",
+    "url": "https://ewelina-wierzbicka.github.io/weather-app/static/js/main.c2689774.chunk.js"
   },
   {
     "revision": "ee9a5f59b6f20aeff94b",
